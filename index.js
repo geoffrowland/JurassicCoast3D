@@ -29,8 +29,8 @@ import updateApplicationOnHashChange from 'terriajs/lib/ViewModels/updateApplica
 import updateApplicationOnMessageFromParentWindow from 'terriajs/lib/ViewModels/updateApplicationOnMessageFromParentWindow';
 import ViewState from 'terriajs/lib/ReactViewModels/ViewState';
 import BingMapsSearchProviderViewModel from 'terriajs/lib/ViewModels/BingMapsSearchProviderViewModel.js';
-import GazetteerSearchProviderViewModel from 'terriajs/lib/ViewModels/GazetteerSearchProviderViewModel.js';
-import GnafSearchProviderViewModel from 'terriajs/lib/ViewModels/GnafSearchProviderViewModel.js';
+// import GazetteerSearchProviderViewModel from 'terriajs/lib/ViewModels/GazetteerSearchProviderViewModel.js';
+// import GnafSearchProviderViewModel from 'terriajs/lib/ViewModels/GnafSearchProviderViewModel.js';
 import defined from 'terriajs-cesium/Source/Core/defined';
 import render from './lib/Views/render';
 
@@ -56,7 +56,7 @@ var terria = new Terria(terriaOptions);
 // insert your custom version of the code in the registerCustomComponentTypes function here instead.
 registerCustomComponentTypes(terria);
 
-terria.welcome = '<h3>Terria<sup>TM</sup> is a spatial data platform that provides spatial predictive analytics</h3><div class="body-copy"><p>This interactive map uses TerriaJS<sup>TM</sup>, an open source software library developed by Data61 for building rich, web-based geospatial data explorers.  It uses Cesium<sup>TM</sup> open source 3D globe viewing software.  TerriaJS<sup>TM</sup> is used for the official Australian Government NationalMap and many other sites rich in the use of spatial data.</p><p>This map also uses Terria<sup>TM</sup> Inference Engine, a cloud-based platform for making probabilistic predictions using data in a web-based mapping environment. Terria<sup>TM</sup> Inference Engine uses state of the art machine learning algorithms developed by Data61 and designed specifically for large-scale spatial inference.</p></div>';
+terria.welcome = '<h3>Jurassic Coast<sup>3D</sup> is an interactive terrain mode for exploring the Dorset and East Devon World Heritage Coast</h3><div class="body-copy"><p>It is based on TerriaJS<sup>TM</sup>, an open source software library developed by Data61 for building rich, web-based geospatial data explorers.  It uses Cesium<sup>TM</sup> open source 3D globe viewing software.  TerriaJS<sup>TM</sup> is used for the official Australian Government NationalMap and many other sites rich in the use of spatial data.</p><p>This map also uses Terria<sup>TM</sup> Inference Engine, a cloud-based platform for making probabilistic predictions using data in a web-based mapping environment. Terria<sup>TM</sup> Inference Engine uses state of the art machine learning algorithms developed by Data61 and designed specifically for large-scale spatial inference.</p></div>';
 
 // Create the ViewState before terria.start so that errors have somewhere to go.
 const viewState = new ViewState({
@@ -93,9 +93,10 @@ terria.start({
             new BingMapsSearchProviderViewModel({
                 terria: terria,
                 key: configuration.bingMapsKey
-            }),
-            new GazetteerSearchProviderViewModel({terria}),
-            new GnafSearchProviderViewModel({terria})
+            })
+            //,
+            // new GazetteerSearchProviderViewModel({terria}),
+            // new GnafSearchProviderViewModel({terria})
         ];
 
         // Automatically update Terria (load new catalogs, etc.) when the hash part of the URL changes.
@@ -103,14 +104,16 @@ terria.start({
         updateApplicationOnMessageFromParentWindow(terria, window);
 
         //temp
-        var createAustraliaBaseMapOptions = require('terriajs/lib/ViewModels/createAustraliaBaseMapOptions');
+        // var createAustraliaBaseMapOptions = require('terriajs/lib/ViewModels/createAustraliaBaseMapOptions');
         var createGlobalBaseMapOptions = require('terriajs/lib/ViewModels/createGlobalBaseMapOptions');
         var selectBaseMap = require('terriajs/lib/ViewModels/selectBaseMap');
         // Create the various base map options.
-        var australiaBaseMaps = createAustraliaBaseMapOptions(terria);
+        // var australiaBaseMaps = createAustraliaBaseMapOptions(terria);
         var globalBaseMaps = createGlobalBaseMapOptions(terria, configuration.bingMapsKey);
 
-        var allBaseMaps = australiaBaseMaps.concat(globalBaseMaps);
+        // var allBaseMaps = australiaBaseMaps.concat(globalBaseMaps);
+        var allBaseMaps = globalBaseMaps;
+        // selectBaseMap(terria, allBaseMaps, 'Bing Maps Aerial with Labels', true);
         selectBaseMap(terria, allBaseMaps, 'Bing Maps Aerial with Labels', true);
 
         // Show a modal disclaimer before user can do anything else.
